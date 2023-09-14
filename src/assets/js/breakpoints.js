@@ -1,7 +1,18 @@
-export default breakpoints = {
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200,
-    xxl: 1400
+export const breakpoints = {
+    xs: "320px",
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    xxl: "1538px"
 }
+
+
+// export const devices = {
+//     xs: breakpoints.xs,
+//     sm: `(min-width: ${breakpoints.sm})`,
+//     md: `(min-width: ${breakpoints.md})`,
+//     lg: `(min-width: ${breakpoints.lg})`,
+//     xl: `(min-width: ${breakpoints.xl})`,
+//     xxl: `(min-width: ${breakpoints.xxl})`,
+// }

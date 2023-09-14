@@ -1,8 +1,9 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 
-import Header from './components/Header';
 import Main from './components/Main';
+
+import Header from './components/Header';
 
 export default function App() {
     return (
@@ -20,4 +21,6 @@ const Conteiner = styled.main`
     box-sizing: border-box;
     font-family: 'Epilogue', sans-serif;
     background-color: hsl(0, 0%, 98%);
+
+    position:relative;
 `;

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// breakpoints para resposive 
+import { breakpoints } from '../assets/js/breakpoints';
 
 export default function Login() {
     return (
@@ -19,6 +21,14 @@ const Div = styled.div`
     justify-content: space-evenly;
     margin-right: 1em;
 
+    @media (max-width: ${breakpoints.xs}){
+        border: 2px solid green;
+        flex-direction: column;
+        width: 10em;
+        margin: 3em auto 0 0;
+
+    }
+
 `;
 export const Register = styled.button`
     
@@ -34,6 +44,10 @@ export const Register = styled.button`
         transition: all .5 ease;
     }
 
+    @media (max-width: ${breakpoints.xs}){
+        width: 100%;
+
+    }
 
 `;
 

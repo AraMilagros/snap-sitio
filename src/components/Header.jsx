@@ -1,116 +1,61 @@
-import React, { useState } from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import MediaQuery from '../assets/js/breakpoints';
 
-import logo from '../assets/img/logo.svg';
-import iconMenu from '../assets/img/icon-menu.svg';
-import iconClose from '../assets/img/icon-close-menu.svg';
+// iconos
+import iconLogo from '../assets/img/logo.svg';
 
-import ListDropdown from './ListDropdown';
-import Login from './Login';
+// breakpoints para resposive 
+import { breakpoints } from '../assets/js/breakpoints';
 
-import { list1, list2 } from '../assets/js/listData';
+//componentes
+import Nav from './Nav';
 
 export default function Header() {
 
-    const [bandera, setBandera] = useState(false);
-
-    // true: cerrado false: desplegado 
-    const [menuAbrir, setMenuAbrir] = useState(false);
-    const desplegar = () => {
-        setMenuAbrir(!menuAbrir);
-        console.log(MediaQuery);
-    }
-    return (
-        <HeaderContent>
-            <LogoS src={logo} alt="logo" />
-            <Div>
-                {
-                    bandera ? <ListaHeader /> : ''
-                }
-
-                {
-                    bandera ? <Login /> : <MenuHambu src={menuAbrir ? iconMenu : iconClose} onClick={() => desplegar()} />
-                }
-
-{/* Lo que me falta hacer es cambiar los estilos en el estilo movil */}
-{/* la idea que tenia es usar mediaquery para retocar los estilos */}
-{/* ahora solo falta saber como aplicar los media query */}
-                { 
-                    (bandera!=true && menuAbrir!=true) ? <ListaHeader /> : '' 
-                }
-
-
-            </Div>
-        </HeaderContent>
-    )
-}
-
-function ListaHeader() {
-    return (
-        <Div>
-            <ListDropdown
-                title="Feactures"
-                lista={list1}
-            />
-            <ListDropdown
-                title="Company"
-                lista={list2}
-            />
-
-            <label className='label secondary'>Careers</label>
-            <label className='label secondary'>About</label>
-        </Div>
-    )
-
-}
-
-
-const LogoS = styled.img.attrs(props => ({
-    src: props.src
-}))`
-    margin: 0 1em;
-`;
-
-const MenuHambu = styled.img.attrs(props => ({
-    src: props.src
-}))`
-    border: 2px solid red;
-`;
-
-const HeaderContent = styled.header`
-    display: flex;
-    flex-direction:row;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid black;
-    height: 4.5em;
-
-`;
-
-const Div = styled.div`
-    padding: 1em;
-    /* width: 100%; */
-    width: auto;
-    display: flex;
-    align-items: center;
+    const [mobile, setMobile] = useState(false);
     
-    .label{
-        width: 5em;
-        cursor: pointer;
+    window.addEventListener('resize', () =>{
+        (screen.width < 768) ? setMobile(true) : setMobile(false);
+        console.log(mobile);
+        console.log(screen.width)
+        console.log(breakpoints.md)
+    })
+
+    return (
+        <NavContainer>
+            <Logo src={iconLogo} alt="logo-snap" />
+            <Nav 
+                mobile={mobile} />
+        </NavContainer>
+    )
+}
+
+const NavContainer = styled.nav`
+    /* border: 2px solid black; */
+    height: 3em;
+    display: flex;
+    justify-content: space-between;
+    position:relative;
+
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        border:2px solid red;
+        width: 100vw;
     }
 
-    .secondary{
-        color:gray;
-        margin-left: 10px;
-        &:hover{
-            color: black;
-        }
-    }
-
-
-    /* @media ${MediaQuery.breakpoints}{
+    @media (max-width: ${breakpoints.sm}){
         border: 2px solid green;
-    } */
+    }
 `;
 
+const Logo = styled.img.attrs(props => ({
+    src: props.src
+}))`
+
+    @media (max-width: ${breakpoints.xs}){
+        width: 2.5em;
+        height: 2.5em;
+        border: 2px solid blue;
+        align-self: center;
+        margin-left: 2%;
+    }
+`;

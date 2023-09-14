@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Register } from './Login';
+
+// breakpoints para resposive 
+import { breakpoints } from '../assets/js/breakpoints';
 
 const iconos = require.context('../assets/img/', true);
 
 export default function Main() {
+
+    const [imgHero, setImgHero] = useState('');
+    useEffect(() => {
+        screen.width < 768 ? setImgHero(iconos('./image-hero-mobile.png')) : setImgHero(iconos('./image-hero-desktop.png'))
+    })
+
     return (
         <MainContainer>
             <Div>
@@ -32,8 +41,8 @@ export default function Main() {
                 </div>
             </Div>
 
-            <ImageMain src={iconos('./image-hero-desktop.png')} />
-            
+            <ImageMain src={imgHero} />
+
         </MainContainer>
     )
 }
@@ -45,6 +54,13 @@ const MainContainer = styled.div`
     /* grid-template-columns: 50% 50%; */
     width: 90%;
     margin: auto;
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        width: 100vw;
+        border: 2px solid red;
+        grid-template-areas:
+                            "imgArea"
+                            "textArea";
+    }
 `;
 
 const Div = styled.div`
@@ -85,6 +101,22 @@ const Div = styled.div`
         justify-content: space-between;
     }
 
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        .div-title{
+            font-size: 30px;
+            width: 100vw;
+            margin: .5em auto 0 0;
+            border: 2px solid blue;
+            text-align: center;
+        }
+        .div-parrafo{
+            width: 100vw;
+            font-size: 14px;
+            margin-top: 1em;
+            text-align: center;
+        }
+    }
+
 `;
 
 const BtnLearn = styled(Register)`
@@ -98,6 +130,10 @@ const BtnLearn = styled(Register)`
         color:black;
         transition: all .5s ease;
     }
+
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        margin: 1.5em auto;
+    }
 `;
 
 const ImageMain = styled.img.attrs(props => ({
@@ -106,11 +142,21 @@ const ImageMain = styled.img.attrs(props => ({
     grid-area: imgArea;
     width: 450px;
     margin: auto;
+
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        width: 100vw;
+        margin: 0%;
+        border: 2px solid black;
+    }
 `;
 
 const ImageIconos = styled.img.attrs(props => ({
     src: props.src,
 }))`
     margin: 20px;
+    @media ((min-width: ${breakpoints.xs}) and (max-width: ${breakpoints.md})){
+        margin: 8px;
+        width: 3.5em;
+    }
 `;
 

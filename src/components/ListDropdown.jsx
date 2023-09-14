@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+// breakpoints para resposive 
+import { breakpoints } from '../assets/js/breakpoints';
 
 const iconos = require.context('../assets/img/', true);
 
@@ -20,28 +22,28 @@ export default function ListDropdown(props) {
             <div className='ulFirst' onClick={() => listDownUp()}>
                 <label className='label'>{props.title} </label>
                 {/* dependiendo si la lista esta desplegada o no, se mostrara determinado icono */}
-                <ImgStyles src={ bandera ? iconos('./icon-arrow-up.svg') : iconos('./icon-arrow-down.svg')} />
+                <ImgStyles src={bandera ? iconos('./icon-arrow-up.svg') : iconos('./icon-arrow-down.svg')} />
             </div>
 
             {
-            // en caso de que bandera sea True, de mostrara el componente que muestra el resto de la lista,
+                // en caso de que bandera sea True, de mostrara el componente que muestra el resto de la lista,
                 // caso contrario, si bandera es False, no se mostrara nada
-                bandera ? 
-                <UlStyles>
-                    {
-                        props.lista.map((item, i) => {
-                            return(
-                                <LiStyles key={i}>
-                                    <ImgStyles src={item.img != null ? iconos(item.img) : null} />
-                                    <label className='label'>{item.name}</label>
-                                </LiStyles>
-                            ); 
+                bandera ?
+                    <UlStyles>
+                        {
+                            props.lista.map((item, i) => {
+                                return (
+                                    <LiStyles key={i}>
+                                        <ImgStyles src={item.img != null ? iconos(item.img) : null} />
+                                        <label className='label'>{item.name}</label>
+                                    </LiStyles>
+                                );
 
-                        })
-                    }
-                </UlStyles>
+                            })
+                        }
+                    </UlStyles>
 
-                : ''
+                    : ''
             }
 
         </UlContent>
@@ -50,6 +52,8 @@ export default function ListDropdown(props) {
 
 const UlContent = styled.div`
     width: 9em;
+    /* width: 7em; */
+    /* border:2px solid red; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,7 +65,18 @@ const UlContent = styled.div`
     }
 
     .label{
-        padding: .2em .2em;
+        padding: .2em;
+    }
+
+    /* para el tamaño mobile modificar
+        align items
+        width: 7em
+    */
+    @media (max-width: ${breakpoints.xs}){
+        /* border: 2px solid green; */
+        align-items: start;
+        width: 7em;
+
     }
 
 `;
@@ -74,6 +89,14 @@ const UlStyles = styled.ul`
     background-color: hsl(0, 0%, 98%);
     border-radius: 15px;
     box-shadow: 0px 0px 30px hsl(0, 0%, 41%, .5);
+
+    @media (max-width: ${breakpoints.xs}){
+        border: 2px solid green;
+        position: relative;
+        width: 8em;
+        margin: .5em 1em;
+        box-shadow: none;
+    }
 `;
 
 const LiStyles = styled.li`
@@ -84,7 +107,7 @@ const LiStyles = styled.li`
 `;
 
 // Esto permite recibir props, cuestion que pueda cambiarse segun se necesite
-    // Nota: hay otras formas de usar props
+// Nota: hay otras formas de usar props
 const ImgStyles = styled.img.attrs(props => ({
     src: props.src || null,
 }))`
